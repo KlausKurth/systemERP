@@ -50,6 +50,28 @@ Em breve descrição...
         Code.exe                     40132 Console                    2    106.364 K
 
 
+2. Deletar todas as tabelas do MYSQL para evitar conflito migrate do Django:
+    ```bash 
+        mysql> USE systemerp;
+
+        mysql> SHOW DATABASES;
+
+        mysql> SET FOREIGN_KEY_CHECKS = 0;    
+
+        mysql> DROP TABLE auth_group_permissions;
+        mysql> DROP TABLE auth_group;
+        mysql> DROP TABLE auth_permission;
+        mysql> DROP TABLE auth_user_groups;
+        mysql> DROP TABLE auth_user_user_permissions;
+        mysql> DROP TABLE auth_user;
+        mysql> DROP TABLE django_admin_log;
+        mysql> DROP TABLE django_content_type;
+        mysql> DROP TABLE django_migrations;
+        mysql> DROP TABLE django_session;
+       
+        SET FOREIGN_KEY_CHECKS = 1;
+
+
 ## Como foi criado o projeto do zero
 
 1. Configurações MYSQL:
@@ -144,11 +166,11 @@ Em breve descrição...
     ```bash
         PS C:\Users\klaus\systemERP\backend\api> django-admin startproject erp .
 
-        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp auth
-
-        PS C:\Users\klaus\systemERP\backend\api> python manage.py migrate
+        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp auth        
 
         PS C:\Users\klaus\systemERP\backend\api> python manage.py makemigrations
+
+        PS C:\Users\klaus\systemERP\backend\api> python manage.py migrate
 
         PS C:\Users\klaus\systemERP\backend\api> python manage.py runserver 8080
 

@@ -38,11 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
+    
     #Cross-Origin Resource Sharing Você precisa usar o django-cors-headers quando o front-end React (ou qualquer outro) está hospedado em um domínio ou porta diferente do Django
     'corsheaders',
+    
     #Rest framework
     'rest_framework',
-    'auth',
+    
+    # Apps
+    'accounts',
+    'companies',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# dizer para o Django que esta responsavel para autenticar Users Class é o app "accounts"
+AUTH_USER_MODEL= 'accounts.User'
 
 
 # Internationalization
