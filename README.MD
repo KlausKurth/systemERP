@@ -12,10 +12,12 @@ Este projeto foi desenvolvido com ***React + JavaScript + Django + Docker*** com
 
 
 ## Como funciona o systemERP?
+
 Em breve descrição...
 
 
 ## 📸 Capturas de Tela
+
 ![Tela inicial](./screenshots/home_page.png)
 
 
@@ -37,51 +39,8 @@ Em breve descrição...
 
 
 
-
-1. Crie um container MYSQL em seu DockerDesktop:
-     ```bash
-        PS C:\Users\klaus> docker run --name mysql -e MYSQL_ROOT_PASSWORD=#Welcome1988 -d -p 3306:3306 mysql:latest
-        
-        PS C:\Users\klaus> docker ps --all
-        CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                         NAMES
-        5d481f337ac4   mysql:latest   "docker-entrypoint.s…"   33 seconds ago   Up 24 seconds   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp   mysql
-        
-        PS C:\Users\klaus\systemERP> docker exec -it mysql bash
-        
-        bash-5.1# mysql -u root -p'#Welcome1988' 
-        mysql: [Warning] Using a password on the command line interface can be insecure.
-        Welcome to the MySQL monitor.  Commands end with ; or \g.
-        Your MySQL connection id is 9
-        Server version: 9.4.0 MySQL Community Server - GPL
-
-        Copyright (c) 2000, 2025, Oracle and/or its affiliates.
-
-        Oracle is a registered trademark of Oracle Corporation and/or its
-        affiliates. Other names may be trademarks of their respective
-        owners.
-
-        Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-        mysql>
-
-        mysql> SHOW DATABASES;
-        +--------------------+
-        | Database           |
-        +--------------------+
-        | information_schema |
-        | mysql              |
-        | performance_schema |
-        | sys                |
-        +--------------------+
-        4 rows in set (0.093 sec)
-        
-
-
-
-
-
-
 ## Troubleshoot Zone
+
 1. Verifique se tem algum serviço utilizando a porta padrão do Django se tiver utilize outra porta no "runserver":
     ```bash 
         PS C:\Users\klaus\systemERP\backend\api> netstat -aon | findstr :8000
@@ -92,6 +51,7 @@ Em breve descrição...
 
 
 ## Como foi criado o projeto do zero
+
 1. Configurações MYSQL:
      ```bash
         PS C:\Users\klaus> docker run --name mysql -e MYSQL_ROOT_PASSWORD=#Welcome1988 -d -p 3306:3306 mysql:latest
