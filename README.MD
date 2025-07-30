@@ -136,6 +136,7 @@ Em breve descrição...
 
 
 4. Inicar projeto Django:
+    ```bash
         PS C:\Users\klaus\systemERP\backend\api> django-admin startproject erp .
 
         PS C:\Users\klaus\systemERP\backend\api> python manage.py migrate
