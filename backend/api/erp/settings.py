@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,20 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-
+    'django.contrib.staticfiles', 
+    #Cross-Origin Resource Sharing Você precisa usar o django-cors-headers quando o front-end React (ou qualquer outro) está hospedado em um domínio ou porta diferente do Django
+    'corsheaders',
     #Rest framework
     'rest_framework',
+    'auth',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # configurações de corsheader deve sempre ficar acima da CommonMiddleware
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
 ]
 
 ROOT_URLCONF = 'erp.urls'
@@ -127,3 +133,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# permitir comunicação do django api com host especifico
+CORS_ALLOWED_ORIGINS = [
+    #permitir comunicação com frontend REACT do nosso projeto
+    "http://localhost:3000",    
+]
+
+#serve para instalar o pacote SimpleJWT, que é uma implementação de autenticação via JWT (JSON Web Token) para projetos Django que usam o Django REST Framework.
+#Adiciona autenticação baseada em tokens JWT à sua API Django
+#Substitui a autenticação padrão de "session + cookies".
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# configurações do Simple JWT 
+SIMPLE_JWT = {
+    "SLIDING_TOKEN_LIFETIME": timedelta(days=1),
+}

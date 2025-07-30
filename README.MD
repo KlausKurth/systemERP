@@ -134,10 +134,17 @@ Em breve descrição...
 
         PS C:\Users\klaus\systemERP\backend\api> pip install mysqlclient
 
+        PS C:\Users\klaus\systemERP\backend\api> pip install django-cors-headers
+
+        PS C:\Users\klaus\systemERP\backend\api> pip install djangorestframework-simplejwt
+
+
 
 4. Inicar projeto Django:
     ```bash
         PS C:\Users\klaus\systemERP\backend\api> django-admin startproject erp .
+
+        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp auth
 
         PS C:\Users\klaus\systemERP\backend\api> python manage.py migrate
 
@@ -167,3 +174,5 @@ Desenvolvido com 💙 por **[Klaus Christian Kurth](https://github.com/KlausKurt
 📚 Referências:
     - [Documentação oficial do Django](https://www.djangoproject.com/download/)
     - [Django REST Framework](https://www.django-rest-framework.org/)
+    - [Django cors headers](https://pypi.org/project/django-cors-headers/)
+    - [Simple JSON Web Token)](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
