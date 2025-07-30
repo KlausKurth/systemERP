@@ -166,7 +166,9 @@ Em breve descrição...
     ```bash
         PS C:\Users\klaus\systemERP\backend\api> django-admin startproject erp .
 
-        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp auth        
+        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp accounts
+
+        PS C:\Users\klaus\systemERP\backend\api> django-admin startapp companies            
 
         PS C:\Users\klaus\systemERP\backend\api> python manage.py makemigrations
 
