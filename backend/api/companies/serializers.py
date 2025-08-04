@@ -87,7 +87,7 @@ class EmployeeSerializer (serializers.ModelSerializer):
                     
 #Ele traz os grupos com suas permissões.
 #Pega as permissões de cada grupo e retorna como lista de dicionários.
-class GroupSerializer (serializers.ModelSerializer):
+class GroupsSerializer (serializers.ModelSerializer):
     permissions = serializers.SerializerMethodField()
 
     class Meta:
@@ -104,9 +104,9 @@ class GroupSerializer (serializers.ModelSerializer):
 
         for group in groups:
             permissions.append({
-                'id': group.permissions.id,
-                'label': group.permission.name,
-                'codename': group.permission.codename
+                'id': group.Permission.id,
+                'label': group.Permission.name,
+                'codename': group.Permission.codename
             })
 
         return permissions
