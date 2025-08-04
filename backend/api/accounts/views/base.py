@@ -1,4 +1,7 @@
 from rest_framework.views import APIView
+'''
+APIException é uma exceção do DRF usada para retornar erros bonitinhos na API. Você pode e deve customizar subclasses dela para seus erros de negócio, como "Grupo não encontrado", "Campos obrigatórios ausentes", etc.
+'''
 from rest_framework.exceptions import APIException
 from typing import Any, Dict, Optional
 
