@@ -6,7 +6,7 @@ utils.py normalmente é criado para organizar funções auxiliares ou utilitári
 APIException é uma exceção do DRF usada para retornar erros bonitinhos na API. Você pode e deve customizar subclasses dela para seus erros de negócio, como "Grupo não encontrado", "Campos obrigatórios ausentes", etc.
 '''
 
-from rest_framework import APIException
+from rest_framework.exceptions import APIException
 
 class NotFoundEmployee(APIException):
     status_code = 404
@@ -23,7 +23,7 @@ class RequiredFields(APIException):
     default_detail = 'Envie os campos no padrão correto'
     default_code = 'error_required_field'
 
-class NotFoundTasksStatus(APIException):
+class NotFoundTaskStatus(APIException):
     status_code= 404
     default_detail = 'Status da tarefa não foi encontrado'
     default_code = 'not_found_task_status'

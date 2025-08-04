@@ -1,90 +1,65 @@
 from rest_framework.exceptions import AuthenticationFailed, APIException
+
 from django.contrib.auth.hashers import check_password, make_password
 
 from accounts.models import User
+
 from companies.models import Enterprise, Employee
 
 class Authentication:
     def signin(self, email=None, password=None) -> User:
-        """
-        Realiza autenticação básica do usuário pelo email e senha.
+        exception_auth = AuthenticationFailed('Email e/ou senha incorreto(s)')
 
-        :param email: email do usuário
-        :param password: senha em texto plano
-        :return: instância do usuário autenticado
-        :raises AuthenticationFailed: se email ou senha forem inválidos
-        """
-
-        # Define a exceção que será lançada em caso de falha na autenticação
-        exception_auth = AuthenticationFailed("Email e/ou senha incorreto(s)")
-
-        # Verifica se existe usuário com o email informado
         user_exists = User.objects.filter(email=email).exists()
 
         if not user_exists:
-            # Se não existe, lança exceção de autenticação falhada
             raise exception_auth
         
-        # Busca o usuário com o email informado
         user = User.objects.filter(email=email).first()
 
-        # Verifica se a senha informada bate com a senha hash armazenada
         if not check_password(password, user.password):
-            # Senha incorreta: lança exceção
             raise exception_auth
         
-        # Tudo certo, retorna o usuário autenticado
         return user
     
-
-    def signup(self, name, email, password, type_account='owner', company_id=None):
-        """
-        Realiza o cadastro de um novo usuário. Pode ser proprietário ou funcionário.
-
-        :param name: Nome do usuário
-        :param email: Email único
-        :param password: Senha em texto plano
-        :param type_account: 'owner' ou 'employee'
-        :param company_id: Obrigatório se type_account for 'employee'
-        :return: Usuário criado
-        :raises APIException: Erros de validação ou duplicidade
-        """
-        if not name:
-            raise APIException('O nome não deve ser vazio')
-
-        if not email:
-            raise APIException('O email não deve ser vazio')
-
-        if not password:
-            raise APIException('A senha não deve ser vazia')
-
-        if User.objects.filter(email=email).exists():
-            raise APIException("Este email já existe na plataforma")
-
+    # o sistema já define que o usuário é owner por padrão a menos que você passe type_account='employee'
+    def signup(self, name, email, password, type_account='owner', company_id=False):
+        if not name or name == '':
+            raise APIException('O nome não deve ser null')
+        
+        if not email or email == '':
+            raise APIException('O email não deve ser null')
+        
+        if not password or password == '':
+            raise APIException('O password não deve ser null')
+        
         if type_account == 'employee' and not company_id:
-            raise APIException('O ID da empresa é obrigatório para funcionários')
+            raise APIException('O id da empresa não deve ser null')
 
+        user = User
+        if user.objects.filter(email=email).exists():
+            raise APIException('Este email já existe na plataforma')
+        
         password_hashed = make_password(password)
 
-        # Criação do usuário
-        created_user = User.objects.create(
+        created_user = user.objects.create(
             name=name,
             email=email,
             password=password_hashed,
-            is_owner=(type_account == 'owner')
+            is_owner=0 if type_account == 'employee' else 1 #Se o type_account for 'employee', o campo is_owner será 0 (ou seja, não é owner).Se for qualquer outra coisa (por padrão 'owner'), o is_owner será 1 (é owner).
         )
 
-        # Se for proprietário, cria uma empresa automaticamente
+        #se o tipo for owner (dono), uma empresa é criada automaticamente com nome genérico "Nome da empresa" e vinculada ao novo usuário
         if type_account == 'owner':
             created_enterprise = Enterprise.objects.create(
                 name='Nome da empresa',
-                user_id=created_user
+                user_id=created_user.id
             )
 
-        # Se for funcionário, associa à empresa fornecida
+        # Se for funcionário (employee), cria o vínculo com a empresa informada em company_id
         if type_account == 'employee':
             Employee.objects.create(
-                enterprise_id=company_id,
+                enterprise_id=company_id or created_enterprise.id,
                 user_id=created_user.id
             )
 
