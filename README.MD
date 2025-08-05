@@ -1,5 +1,8 @@
-# systemERP
+# 💻📱 systemERP
+
+
 Em breve descrição...
+
 
 
 ![React](https://img.shields.io/badge/React-18-blue?logo=react) 
@@ -11,14 +14,11 @@ Em breve descrição...
 Este projeto foi desenvolvido com ***React + JavaScript + Django + Docker*** como parte do meu aprendizado prático para reforçar conceitos essenciais de desenvolvimento front-end com React, back-end com Django (API REST), persistência de dados com **MySQL** e boas práticas em automação e deploy com Docker.
 
 
-## Como funciona o systemERP?
 
-Em breve descrição...
-
-
-## 📸 Capturas de Tela
+## 📸 Capturas de Tela 
 
 ![Tela inicial](./screenshots/home_page.png)
+
 
 
 ## 🚀 Tecnologias utilizadas
@@ -39,7 +39,7 @@ Em breve descrição...
 
 
 
-## Troubleshoot Zone
+## 💢 Troubleshoot Zone
 
 1. Verifique se tem algum serviço utilizando a porta padrão do Django se tiver utilize outra porta no "runserver":
     ```bash 
@@ -72,7 +72,7 @@ Em breve descrição...
         SET FOREIGN_KEY_CHECKS = 1;
 
 
-## Como foi criado o projeto do zero
+## ⛏️ Como foi criado o projeto do zero
 
 1. Configurações MYSQL:
      ```bash
@@ -179,11 +179,208 @@ Em breve descrição...
 
 
 
+## 📋 Documentação da API - Authentication
+
+#### Autenticação - Criar Um Conta
+
+```http
+  POST /api/v1/auth/signup
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Obrigatório** |
+| `email` | `string` | **Obrigatório** |
+| `password` | `string` | **Obrigatório** |
+
+#### Autenticação - Fazer Login
+
+```http
+  POST /api/v1/auth/signin
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `string` | **Obrigatório** |
+| `password` | `string` | **Obrigatório** |
+
+#### Autenticação - Obter Um Usuário - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/auth/user
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `Authorization` | `string` | **Obrigatório**. Access Token |
 
 
+## 📋 Documentação da API - Companies - Employees
 
+#### Funcionários - Listar Funcionários De  Uma Empresa - (_Necessário Autenticação_)
 
+```http
+  GET /api/v1/companies/employees
+```
 
+#### Funcionários - Criar Um Funcionário - (_Necessário Autenticação_)
+
+```http
+  POST /api/v1/companies/employees
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Obrigatório** |
+| `email` | `string` | **Obrigatório** |
+| `password` | `string` | **Obrigatório** |
+
+#### Funcionários - Obter Um Funcionário - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/employees/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de um funcionário |
+
+#### Funcionários - Editar Um Funcionário - (_Necessário Autenticação_)
+
+```http
+  PUT /api/v1/companies/employees/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de um funcionário |
+| `groups` | `string` | **Opcional**. String com uma lista de ids de diversos grupos |
+| `name` | `string` | **Opcional** |
+| `email` | `string` | **Opcional** |
+
+#### Funcionários - Deletar Um Funcionário - (_Necessário Autenticação_)
+
+```http
+  DELETE /api/v1/companies/employees/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de um funcionário |
+
+## 📋 Documentação da API - Companies - Groups / Permissions
+
+#### Grupos / Cargos - Gupos De Uma Empresa - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/groups
+```
+
+#### Grupos / Cargos - Criar Um Grupo - (_Necessário Autenticação_)
+
+```http
+  POST /api/v1/companies/groups
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- | 
+| `name` | `string` | **Obrigatório** | 
+| `permissions` | `string` | **Obrigatório**. String com uma lista de ids de diversas permissões |
+
+#### Grupos / Cargos -  Obter Um Grupo - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/groups/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- | 
+| `id` | `number` | **Obrigatório**. ID de um grupo |
+
+#### Grupos / Cargos - Editar Um Grupo - (_Necessário Autenticação_)
+
+```http
+  PUT /api/v1/companies/groups/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de um grupo |
+| `name` | `string` | **Opcional** | 
+| `permissions` | `string` | **Opcional**. String com uma lista de ids de diversas permissões |
+
+#### Grupos / Cargos - Deletar Um Grupo - (_Necessário Autenticação_)
+
+```http
+  DELETE /api/v1/companies/groups/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de um grupo |
+
+#### Permissões - Permissões Disponíveis - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/permissions
+```
+
+## 📋 Documentação da API - Companies - Tasks
+
+#### Tarefas - Tarefas De Uma Empresa - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/tasks
+```
+
+#### Tarefas - Criar Um Tarefa - (_Necessário Autenticação_)
+
+```http
+  POST /api/v1/companies/tasks
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- | 
+| `employee_id` | `number` | **Obrigatório**. ID de um funcionário | 
+| `status_id` | `number` | **Obrigatório**. ID de um status de tarefa |
+| `title` | `string` | **Obrigatório** |
+| `description` | `string` | **Opcional** |
+| `due_date` | `date` | **Opcional**. Data no formato: d/m/Y H:M |
+
+#### Tarefas - Obter Uma Tarefa - (_Necessário Autenticação_)
+
+```http
+  GET /api/v1/companies/tasks/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de uma tarefa |
+
+#### Tarefas - Editar Um Tarefa - (_Necessário Autenticação_)
+
+```http
+  PUT /api/v1/companies/tasks/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de uma tarefa |
+| `employee_id` | `number` | **Opcional**. ID de um funcionário | 
+| `status_id` | `number` | **Opcional**. ID de um status de tarefa |
+| `title` | `string` | **Opcional** |
+| `description` | `string` | **Opcional** |
+| `due_date` | `date` | **Opcional**. Data no formato: d/m/Y H:M |
+
+#### Tarefas - Deletar Uma Tarefa - (_Necessário Autenticação_)
+
+```http
+  DELETE /api/v1/companies/tasks/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `number` | **Obrigatório**. ID de uma tarefa |
 
 
 
