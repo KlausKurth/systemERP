@@ -159,7 +159,7 @@ class TaskSerializer (serializers.ModelSerializer):
     def get_status(self, obj) -> Any:
         return obj.status.name
     
-    def get_status(self, obj):
+    def get_employee(self, obj):
         return EmployeeSerializer(obj.employee).data
     
     def update(self, instance, validated_data) -> None:
